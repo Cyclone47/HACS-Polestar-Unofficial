@@ -11,10 +11,12 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from .api import PolestarApiClient
 from .const import (
     CONF_ACCOUNT_ID,
+    CONF_CAR_COLOR,
     CONF_CLIENT_ID,
     CONF_CLIENT_SECRET,
     CONF_SCAN_INTERVAL,
     CONF_VIN,
+    DEFAULT_CAR_COLOR,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
     PLATFORMS,
@@ -35,6 +37,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         CONF_SCAN_INTERVAL,
         entry.data.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
     )
+    car_color = entry.options.get(
+        CONF_CAR_COLOR,
+        entry.data.get(CONF_CAR_COLOR, DEFAULT_CAR_COLOR),
+    )
 
     session = async_get_clientsession(hass)
     api = PolestarApiClient(
@@ -49,6 +55,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         api=api,
         vin=vin,
         update_interval=scan_interval,
+        car_color=car_color,
     )
 
     # Perform first data refresh
@@ -77,6 +84,8 @@ async def update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Handle options updates."""
     if coordinator := hass.data.get(DOMAIN, {}).get(entry.entry_id):
         new_interval = entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
-        _LOGGER.debug("Updating Polestar polling interval to %d seconds", new_interval)
+        new_color = entry.options.get(CONF_CAR_COLOR, DEFAULT_CAR_COLOR)
+        _LOGGER.debug("Updating Polestar polling interval to %d seconds and color to %s", new_interval, new_color)
         coordinator.update_interval = timedelta(seconds=new_interval)
+        coordinator.car_color = new_color
         await coordinator.async_refresh()

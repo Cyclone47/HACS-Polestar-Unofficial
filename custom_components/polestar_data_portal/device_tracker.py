@@ -41,9 +41,9 @@ class PolestarDeviceTracker(CoordinatorEntity[PolestarDataUpdateCoordinator], Tr
         self._attr_unique_id = f"{coordinator.vin}_location"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.vin)},
-            name=f"Polestar ({coordinator.vin})",
+            name=f"{coordinator.vin_info.get('model', 'Polestar')} ({coordinator.vin})",
             manufacturer="Polestar",
-            model="Polestar 2",
+            model=coordinator.vin_info.get("model_display", "Polestar 2"),
             serial_number=coordinator.vin,
         )
 

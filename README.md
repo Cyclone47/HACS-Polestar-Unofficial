@@ -186,39 +186,82 @@ Polestar imposes a generous rate limit of **10,000 API calls per day** per clien
 - The integration defaults to polling every **300 seconds (5 minutes)** (~4,032 calls/day), ensuring you stay safely within the quota.
 - You can change the polling interval anytime by clicking **Configure** on the integration card in Home Assistant (range: 60s to 3600s).
 
+### 🎨 Vehicle Color & Studio Renders
+Choose your Polestar's exterior color anytime in **Settings** -> **Devices & Services** -> **Polestar Data Portal** -> **Configure**:
+- 🤍 **Snow** (Crystal White)
+- 🩶 **Magnesium / Vapour** (Silver / Light Grey)
+- 🌪️ **Thunder / Storm** (Dark Grey)
+- 💙 **Midnight** (Dark Blue)
+- 🖤 **Space / Void** (Deep Black)
+- 🥇 **Jupiter / Dune** (Gold / Champagne)
+
+The integration includes a native **`image` entity** (`image.<vin>_vehicle_image`) that provides an official, transparent 4K studio render of your car in your chosen color, complete with VIN model and model year detection (`Polestar 2 (2024)`).
+
 ---
 
 ## 📊 Dashboard Examples
 
-### Lovelace Card Example (Mushroom & Standard Cards)
+### Interactive Vehicle Status Card (Picture Elements with Transparent Car)
+
+Place your transparent Polestar render in the center of your dashboard with live telemetry overlays:
 
 ```yaml
 type: vertical-stack
 cards:
-  - type: custom:mushroom-template-card
-    primary: Polestar 2
-    secondary: >
-      {{ states('sensor.polestar_battery_level') }}% · {{ states('sensor.polestar_estimated_range') }} km
-    icon: mdi:car-electric
-    icon_color: "{{ 'green' if is_state('binary_sensor.polestar_charging', 'on') else 'blue' }}"
-
-  - type: gauge
-    entity: sensor.polestar_battery_level
-    name: Battery Level
-    needle: true
-    severity:
-      green: 50
-      yellow: 20
-      red: 0
+  - type: picture-elements
+    image: /api/image_proxy/image.polestar_vehicle_image
+    elements:
+      # Battery state badge
+      - type: state-badge
+        entity: sensor.polestar_battery_level
+        style:
+          top: 15%
+          left: 15%
+      # Estimated range badge
+      - type: state-badge
+        entity: sensor.polestar_estimated_range
+        style:
+          top: 15%
+          right: 15%
+      # Central lock icon
+      - type: state-icon
+        entity: binary_sensor.polestar_central_lock
+        style:
+          top: 15%
+          left: 50%
+      # Tyre pressures (4 corners)
+      - type: state-label
+        entity: sensor.polestar_tyre_pressure_front_left
+        style:
+          top: 45%
+          left: 12%
+      - type: state-label
+        entity: sensor.polestar_tyre_pressure_front_right
+        style:
+          top: 45%
+          right: 12%
+      - type: state-label
+        entity: sensor.polestar_tyre_pressure_rear_left
+        style:
+          top: 75%
+          left: 12%
+      - type: state-label
+        entity: sensor.polestar_tyre_pressure_rear_right
+        style:
+          top: 75%
+          right: 12%
 
   - type: entities
-    title: Vehicle State
+    title: Telemetrics & Charging
     entities:
-      - entity: binary_sensor.polestar_charger_connected
-      - entity: binary_sensor.polestar_central_lock
+      - entity: sensor.polestar_battery_level
+      - entity: sensor.polestar_charging_status
+      - entity: sensor.polestar_charging_power
+      - entity: sensor.polestar_estimated_charging_time
+      - entity: sensor.polestar_estimated_full_charge_range
       - entity: sensor.polestar_odometer
-      - entity: sensor.polestar_compartment_temperature
-      - entity: sensor.polestar_days_to_service
+      - entity: sensor.polestar_exterior_color
+      - entity: binary_sensor.polestar_charger_connected
       - entity: button.polestar_refresh_data
 
   - type: map

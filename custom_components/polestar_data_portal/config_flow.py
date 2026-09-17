@@ -19,14 +19,17 @@ from .api import (
 )
 from .const import (
     CONF_ACCOUNT_ID,
+    CONF_CAR_COLOR,
     CONF_CLIENT_ID,
     CONF_CLIENT_SECRET,
     CONF_SCAN_INTERVAL,
     CONF_VIN,
+    DEFAULT_CAR_COLOR,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
     MAX_SCAN_INTERVAL,
     MIN_SCAN_INTERVAL,
+    POLESTAR_COLORS,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -91,6 +94,7 @@ class PolestarConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                             CONF_CLIENT_SECRET: user_input[CONF_CLIENT_SECRET].strip(),
                             CONF_ACCOUNT_ID: user_input[CONF_ACCOUNT_ID].strip(),
                             CONF_VIN: vin,
+                            CONF_CAR_COLOR: DEFAULT_CAR_COLOR,
                         },
                     )
                 else:
@@ -116,6 +120,7 @@ class PolestarConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             vin = user_input[CONF_VIN]
+            car_color = user_input.get(CONF_CAR_COLOR, DEFAULT_CAR_COLOR)
             await self.async_set_unique_id(vin)
             self._abort_if_unique_id_configured()
 
@@ -124,12 +129,14 @@ class PolestarConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 data={
                     **self._user_input,
                     CONF_VIN: vin,
+                    CONF_CAR_COLOR: car_color,
                 },
             )
 
         schema = vol.Schema(
             {
                 vol.Required(CONF_VIN, default=self._vehicles[0]): vol.In(self._vehicles),
+                vol.Required(CONF_CAR_COLOR, default=DEFAULT_CAR_COLOR): vol.In(list(POLESTAR_COLORS.keys())),
             }
         )
 
@@ -166,6 +173,10 @@ class PolestarOptionsFlowHandler(config_entries.OptionsFlow):
             CONF_SCAN_INTERVAL,
             self.config_entry.data.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
         )
+        current_color = self.config_entry.options.get(
+            CONF_CAR_COLOR,
+            self.config_entry.data.get(CONF_CAR_COLOR, DEFAULT_CAR_COLOR),
+        )
 
         options_schema = vol.Schema(
             {
@@ -176,6 +187,10 @@ class PolestarOptionsFlowHandler(config_entries.OptionsFlow):
                     vol.Coerce(int),
                     vol.Range(min=MIN_SCAN_INTERVAL, max=MAX_SCAN_INTERVAL),
                 ),
+                vol.Required(
+                    CONF_CAR_COLOR,
+                    default=current_color,
+                ): vol.In(list(POLESTAR_COLORS.keys())),
             }
         )
 

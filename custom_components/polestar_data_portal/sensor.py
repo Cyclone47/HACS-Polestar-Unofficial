@@ -418,6 +418,17 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
             (data.get("global_charge_timer") or {}).get("globalChargeTimer", {}).get("stop")
         ),
     ),
+    PolestarSensorEntityDescription(
+        key="exterior_color",
+        translation_key="exterior_color",
+        icon="mdi:palette",
+        value_fn=lambda data: data.get("car_color_name"),
+        extra_attrs_fn=lambda data: {
+            "color_id": data.get("car_color"),
+            "hex": data.get("car_color_hex"),
+            "image_url": data.get("car_image_url"),
+        },
+    ),
 )
 
 
@@ -454,9 +465,9 @@ class PolestarSensor(CoordinatorEntity[PolestarDataUpdateCoordinator], SensorEnt
         self._attr_unique_id = f"{coordinator.vin}_{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.vin)},
-            name=f"Polestar ({coordinator.vin})",
+            name=f"{coordinator.vin_info.get('model', 'Polestar')} ({coordinator.vin})",
             manufacturer="Polestar",
-            model="Polestar 2",
+            model=coordinator.vin_info.get("model_display", "Polestar 2"),
             serial_number=coordinator.vin,
         )
 

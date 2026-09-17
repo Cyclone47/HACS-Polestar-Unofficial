@@ -14,7 +14,8 @@
         "title": "Selecteer Voertuig",
         "description": "Kies de Polestar die u wilt configureren.",
         "data": {
-          "vin": "Voertuig (VIN)"
+          "vin": "Voertuig (VIN)",
+          "car_color": "Carrosseriekleur"
         }
       }
     },
@@ -32,10 +33,11 @@
   "options": {
     "step": {
       "init": {
-        "title": "Polestar Polling Opties",
-        "description": "Stel de updatefrequentie in. Polestar hanteert een limiet van 10.000 verzoeken per dag.",
+        "title": "Polestar Instellingen",
+        "description": "Stel de updatefrequentie en carrosseriekleur in.",
         "data": {
-          "scan_interval": "Update-interval (seconden)"
+          "scan_interval": "Update-interval (seconden)",
+          "car_color": "Carrosseriekleur"
         }
       }
     }
@@ -122,7 +124,8 @@
         }
       },
       "global_charge_timer_start": { "name": "Laadschema starttijd" },
-      "global_charge_timer_stop": { "name": "Laadschema stoptijd" }
+      "global_charge_timer_stop": { "name": "Laadschema stoptijd" },
+      "exterior_color": { "name": "Exterieurkleur" }
     },
     "binary_sensor": {
       "charger_connected": { "name": "Laadkabel aangesloten" },
@@ -160,6 +163,9 @@
     },
     "button": {
       "refresh_data": { "name": "Gegevens vernieuwen" }
+    },
+    "image": {
+      "vehicle_image": { "name": "Voertuigafbeelding" }
     }
   }
 }

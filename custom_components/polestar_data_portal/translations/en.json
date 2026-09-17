@@ -14,7 +14,8 @@
         "title": "Select Vehicle",
         "description": "Select the Polestar vehicle you wish to configure.",
         "data": {
-          "vin": "Vehicle (VIN)"
+          "vin": "Vehicle (VIN)",
+          "car_color": "Exterior color"
         }
       }
     },
@@ -32,10 +33,11 @@
   "options": {
     "step": {
       "init": {
-        "title": "Polestar Polling Options",
-        "description": "Configure the polling frequency. Note that Polestar enforces a quota of 10,000 requests per day.",
+        "title": "Polestar Options",
+        "description": "Configure the polling frequency and vehicle exterior color.",
         "data": {
-          "scan_interval": "Update interval (seconds)"
+          "scan_interval": "Update interval (seconds)",
+          "car_color": "Exterior color"
         }
       }
     }
@@ -122,7 +124,8 @@
         }
       },
       "global_charge_timer_start": { "name": "Global charge timer start" },
-      "global_charge_timer_stop": { "name": "Global charge timer stop" }
+      "global_charge_timer_stop": { "name": "Global charge timer stop" },
+      "exterior_color": { "name": "Exterior color" }
     },
     "binary_sensor": {
       "charger_connected": { "name": "Charger connected" },
@@ -160,6 +163,9 @@
     },
     "button": {
       "refresh_data": { "name": "Refresh data" }
+    },
+    "image": {
+      "vehicle_image": { "name": "Vehicle image" }
     }
   }
 }
