@@ -167,9 +167,13 @@ With Polestar opening the EU Data Act Developer Portal, we now have a **legal, o
 
 ## ⚙️ Step 3: Configuration
 
+> [!IMPORTANT]
+> **A Home Assistant restart is required before configuration!**
+> After downloading via HACS, you **must restart Home Assistant** (*Settings* -> *System* -> *Restart*) before clicking the button below. Home Assistant cannot load the UI setup wizard or integration icons until it has restarted.
+
 [![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=polestar_data_portal)
 
-1. In Home Assistant, go to **Settings** -> **Devices & Services**.
+1. After restarting, click the badge above, or in Home Assistant go to **Settings** -> **Devices & Services**.
 2. Click **+ Add Integration** and search for **Polestar Data Portal**.
 3. Enter the credentials from Step 1:
    - **App client ID**: from the *Credential* tab.
