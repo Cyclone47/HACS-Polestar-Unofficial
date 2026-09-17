@@ -1,0 +1,121 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Polestar Data Portal Inloggegevens",
+        "description": "Voer uw inloggegevens van data-portal.polestar.com in. De 'App client ID' en 'Client secret' vindt u onder het tabblad 'Credential', en het 'Account ID' onder het tabblad 'API Documentation'.",
+        "data": {
+          "client_id": "App client ID",
+          "client_secret": "Client secret",
+          "account_id": "Account ID / x-client-id"
+        }
+      },
+      "vehicle": {
+        "title": "Selecteer Voertuig",
+        "description": "Kies de Polestar die u wilt configureren.",
+        "data": {
+          "vin": "Voertuig (VIN)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Authenticatiefout. Controleer uw Client-ID, Clientgeheim en Account-ID.",
+      "cannot_connect": "Kan geen verbinding maken met de Polestar API-servers.",
+      "no_vehicles": "Geen geautoriseerde voertuigen gevonden voor dit account.",
+      "rate_limited": "Polestar API limiet bereikt. Probeer het later opnieuw.",
+      "unknown": "Onverwachte fout opgetreden."
+    },
+    "abort": {
+      "already_configured": "Dit voertuig is al geconfigureerd."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Polestar Polling Opties",
+        "description": "Stel de updatefrequentie in. Polestar hanteert een limiet van 10.000 verzoeken per dag.",
+        "data": {
+          "scan_interval": "Update-interval (seconden)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery_level": { "name": "Accuniveau" },
+      "estimated_full_charge_range": { "name": "Geschatte actieradius bij 100%" },
+      "estimated_charging_end_time": { "name": "Verwachte laadtijd voltooid" },
+      "last_telemetry_update": { "name": "Laatste telemetrie-update" },
+      "estimated_range": { "name": "Geschatte actieradius" },
+      "estimated_range_miles": { "name": "Geschatte actieradius (mijl)" },
+      "average_energy_consumption": { "name": "Gemiddeld energieverbruik" },
+      "estimated_charging_time": { "name": "Geschatte laadtijd tot vol" },
+      "charging_power": { "name": "Laadvermogen" },
+      "charging_current": { "name": "Laadstroom" },
+      "charging_voltage": { "name": "Laadspanning" },
+      "charging_status": { "name": "Laadstatus" },
+      "charging_type": { "name": "Laadtype" },
+      "charger_power_status": { "name": "Laadstroomstatus" },
+      "target_soc": { "name": "Doel-laadpercentage" },
+      "amp_limit": { "name": "Laadstroomlimiet" },
+      "odometer": { "name": "Kilometerstand" },
+      "trip_meter_manual": { "name": "Ritteller (handmatig)" },
+      "trip_meter_automatic": { "name": "Ritteller (automatisch)" },
+      "average_speed_manual": { "name": "Gemiddelde snelheid (handmatig)" },
+      "average_speed_automatic": { "name": "Gemiddelde snelheid (automatisch)" },
+      "days_to_service": { "name": "Dagen tot onderhoud" },
+      "distance_to_service": { "name": "Afstand tot onderhoud" },
+      "engine_hours_to_service": { "name": "Draaiuren tot onderhoud" },
+      "tyre_pressure_front_left": { "name": "Bandenspanning linksvoor" },
+      "tyre_pressure_front_right": { "name": "Bandenspanning rechtsvoor" },
+      "tyre_pressure_rear_left": { "name": "Bandenspanning linksachter" },
+      "tyre_pressure_rear_right": { "name": "Bandenspanning rechtsachter" },
+      "compartment_temperature": { "name": "Interieurtemperatuur" },
+      "requested_temperature": { "name": "Gewenste temperatuur" },
+      "climate_runtime_left": { "name": "Resterende klimatiseringstijd" },
+      "ventilation_mode": { "name": "Ventilatiemodus" },
+      "measured_aqi": { "name": "Luchtkwaliteitsindex interieur" },
+      "measured_pm25": { "name": "Fijnstof PM2.5 interieur" },
+      "usage_mode": { "name": "Gebruiksmodus" },
+      "global_charge_timer_start": { "name": "Laadschema starttijd" },
+      "global_charge_timer_stop": { "name": "Laadschema stoptijd" }
+    },
+    "binary_sensor": {
+      "charger_connected": { "name": "Laadkabel aangesloten" },
+      "battery_charging": { "name": "Aan het laden" },
+      "charge_now_active": { "name": "Direct laden (Charge now) actief" },
+      "global_charge_timer_active": { "name": "Laadschema actief" },
+      "front_left_door": { "name": "Deur linksvoor" },
+      "front_right_door": { "name": "Deur rechtsvoor" },
+      "rear_left_door": { "name": "Deur linksachter" },
+      "rear_right_door": { "name": "Deur rechtsachter" },
+      "front_left_window": { "name": "Raam linksvoor" },
+      "front_right_window": { "name": "Raam rechtsvoor" },
+      "rear_left_window": { "name": "Raam linksachter" },
+      "rear_right_window": { "name": "Raam rechtsachter" },
+      "hood": { "name": "Motorkap" },
+      "tailgate": { "name": "Achterklep" },
+      "tank_lid": { "name": "Laadklep" },
+      "central_lock": { "name": "Centrale vergrendeling" },
+      "tailgate_lock": { "name": "Achterklepvergrendeling" },
+      "alarm": { "name": "Alarm" },
+      "parking_climate_running": { "name": "Standklimatisering actief" },
+      "pre_cleaning_running": { "name": "Voorreiniging interieur actief" },
+      "vehicle_available": { "name": "Voertuig online beschikbaar" },
+      "service_warning": { "name": "Onderhoudswaarschuwing" },
+      "brake_fluid_warning": { "name": "Remvloeistofwaarschuwing" },
+      "engine_coolant_warning": { "name": "Koelvloeistofwaarschuwing" },
+      "oil_level_warning": { "name": "Oliepeilwaarschuwing" },
+      "washer_fluid_warning": { "name": "Ruitensproeiervloeistofwaarschuwing" },
+      "low_voltage_battery_warning": { "name": "12V-accuwaarschuwing" },
+      "tyre_pressure_warning": { "name": "Bandenspanningswaarschuwing" },
+      "exterior_light_warning": { "name": "Buitenverlichtingswaarschuwing" }
+    },
+    "device_tracker": {
+      "location": { "name": "Locatie" }
+    },
+    "button": {
+      "refresh_data": { "name": "Gegevens vernieuwen" }
+    }
+  }
+}

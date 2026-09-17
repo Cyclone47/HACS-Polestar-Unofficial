@@ -1,0 +1,14 @@
+{
+  "domain": "polestar_data_portal",
+  "name": "Polestar Data Portal",
+  "codeowners": [
+    "@Cyclone47"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Cyclone47/HACS-Polestar-Unofficial",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/Cyclone47/HACS-Polestar-Unofficial/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

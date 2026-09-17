@@ -1,0 +1,121 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Polestar Data Portal Credentials",
+        "description": "Enter your credentials from data-portal.polestar.com. Find App client ID and Client secret on the 'Credential' tab, and Account ID on the 'API Documentation' tab.",
+        "data": {
+          "client_id": "App client ID",
+          "client_secret": "Client secret",
+          "account_id": "Account ID / x-client-id"
+        }
+      },
+      "vehicle": {
+        "title": "Select Vehicle",
+        "description": "Select the Polestar vehicle you wish to configure.",
+        "data": {
+          "vin": "Vehicle (VIN)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Authentication failed. Check your Client ID, Client Secret, and Account ID.",
+      "cannot_connect": "Failed to connect to the Polestar API.",
+      "no_vehicles": "No authorized vehicles found for this account.",
+      "rate_limited": "Polestar API rate limit reached. Please try again later.",
+      "unknown": "Unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This vehicle is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Polestar Polling Options",
+        "description": "Configure the polling frequency. Note that Polestar enforces a quota of 10,000 requests per day.",
+        "data": {
+          "scan_interval": "Update interval (seconds)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery_level": { "name": "Battery level" },
+      "estimated_full_charge_range": { "name": "Estimated full charge range" },
+      "estimated_charging_end_time": { "name": "Estimated charging end time" },
+      "last_telemetry_update": { "name": "Last telemetry update" },
+      "estimated_range": { "name": "Estimated range" },
+      "estimated_range_miles": { "name": "Estimated range (miles)" },
+      "average_energy_consumption": { "name": "Average energy consumption" },
+      "estimated_charging_time": { "name": "Estimated charging time to full" },
+      "charging_power": { "name": "Charging power" },
+      "charging_current": { "name": "Charging current" },
+      "charging_voltage": { "name": "Charging voltage" },
+      "charging_status": { "name": "Charging status" },
+      "charging_type": { "name": "Charging type" },
+      "charger_power_status": { "name": "Charger power status" },
+      "target_soc": { "name": "Target state of charge" },
+      "amp_limit": { "name": "Charging amp limit" },
+      "odometer": { "name": "Odometer" },
+      "trip_meter_manual": { "name": "Trip meter (manual)" },
+      "trip_meter_automatic": { "name": "Trip meter (automatic)" },
+      "average_speed_manual": { "name": "Average speed (manual)" },
+      "average_speed_automatic": { "name": "Average speed (automatic)" },
+      "days_to_service": { "name": "Days to service" },
+      "distance_to_service": { "name": "Distance to service" },
+      "engine_hours_to_service": { "name": "Engine hours to service" },
+      "tyre_pressure_front_left": { "name": "Tyre pressure front left" },
+      "tyre_pressure_front_right": { "name": "Tyre pressure front right" },
+      "tyre_pressure_rear_left": { "name": "Tyre pressure rear left" },
+      "tyre_pressure_rear_right": { "name": "Tyre pressure rear right" },
+      "compartment_temperature": { "name": "Compartment temperature" },
+      "requested_temperature": { "name": "Requested climate temperature" },
+      "climate_runtime_left": { "name": "Climate runtime left" },
+      "ventilation_mode": { "name": "Ventilation mode" },
+      "measured_aqi": { "name": "Cabin air quality index" },
+      "measured_pm25": { "name": "Cabin PM2.5 particulate matter" },
+      "usage_mode": { "name": "Usage mode" },
+      "global_charge_timer_start": { "name": "Global charge timer start" },
+      "global_charge_timer_stop": { "name": "Global charge timer stop" }
+    },
+    "binary_sensor": {
+      "charger_connected": { "name": "Charger connected" },
+      "battery_charging": { "name": "Charging" },
+      "charge_now_active": { "name": "Charge now active" },
+      "global_charge_timer_active": { "name": "Global charge timer active" },
+      "front_left_door": { "name": "Front left door" },
+      "front_right_door": { "name": "Front right door" },
+      "rear_left_door": { "name": "Rear left door" },
+      "rear_right_door": { "name": "Rear right door" },
+      "front_left_window": { "name": "Front left window" },
+      "front_right_window": { "name": "Front right window" },
+      "rear_left_window": { "name": "Rear left window" },
+      "rear_right_window": { "name": "Rear right window" },
+      "hood": { "name": "Hood" },
+      "tailgate": { "name": "Tailgate" },
+      "tank_lid": { "name": "Charge port flap" },
+      "central_lock": { "name": "Central lock" },
+      "tailgate_lock": { "name": "Tailgate lock" },
+      "alarm": { "name": "Alarm" },
+      "parking_climate_running": { "name": "Parking climate" },
+      "pre_cleaning_running": { "name": "Interior pre-cleaning" },
+      "vehicle_available": { "name": "Vehicle availability" },
+      "service_warning": { "name": "Service warning" },
+      "brake_fluid_warning": { "name": "Brake fluid level warning" },
+      "engine_coolant_warning": { "name": "Engine coolant level warning" },
+      "oil_level_warning": { "name": "Oil level warning" },
+      "washer_fluid_warning": { "name": "Washer fluid level warning" },
+      "low_voltage_battery_warning": { "name": "12V battery warning" },
+      "tyre_pressure_warning": { "name": "Tyre pressure warning" },
+      "exterior_light_warning": { "name": "Exterior light warning" }
+    },
+    "device_tracker": {
+      "location": { "name": "Location" }
+    },
+    "button": {
+      "refresh_data": { "name": "Refresh data" }
+    }
+  }
+}
