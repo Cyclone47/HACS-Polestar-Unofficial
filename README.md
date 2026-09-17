@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="images/logo.png" width="140" alt="Polestar Logo">
+</p>
+
 # Polestar Data Portal — Home Assistant Integration (EU Data Act)
 
 [![HACS Badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/default)
