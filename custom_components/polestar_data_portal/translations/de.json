@@ -1,0 +1,301 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Polestar Data Portal Zugangsdaten",
+        "description": "Geben Sie Ihre Zugangsdaten von data-portal.polestar.com ein. Die 'App client ID' und das 'Client secret' finden Sie im Tab 'Credential', und die 'Account ID' im Tab 'API Documentation'.",
+        "data": {
+          "client_id": "App client ID",
+          "client_secret": "Client secret",
+          "account_id": "Account ID / x-client-id"
+        }
+      },
+      "vehicle": {
+        "title": "Fahrzeug auswählen",
+        "description": "Wählen Sie das Polestar-Fahrzeug aus, das Sie konfigurieren möchten.",
+        "data": {
+          "vin": "Fahrzeug (VIN)",
+          "car_color": "Außenfarbe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Authentifizierung fehlgeschlagen. Überprüfen Sie Client-ID, Client-Secret und Account-ID.",
+      "cannot_connect": "Verbindung zur Polestar-API fehlgeschlagen.",
+      "no_vehicles": "Keine autorisierten Fahrzeuge für dieses Konto gefunden.",
+      "rate_limited": "Polestar-API-Ratenbegrenzung erreicht. Bitte versuchen Sie es später erneut.",
+      "unknown": "Ein unerwarteter Fehler ist aufgetreten."
+    },
+    "abort": {
+      "already_configured": "Dieses Fahrzeug ist bereits konfiguriert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Polestar Einstellungen",
+        "description": "Konfigurieren Sie das Abfrageintervall und die Außenfarbe Ihres Polestars.",
+        "data": {
+          "scan_interval": "Aktualisierungsintervall (Sekunden)",
+          "car_color": "Außenfarbe"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery_level": {
+        "name": "Batterieladestand"
+      },
+      "estimated_full_charge_range": {
+        "name": "Geschätzte Reichweite bei 100%"
+      },
+      "estimated_charging_end_time": {
+        "name": "Geschätztes Ladeende"
+      },
+      "last_telemetry_update": {
+        "name": "Letzte Telemetrie-Aktualisierung"
+      },
+      "estimated_range": {
+        "name": "Geschätzte Reichweite"
+      },
+      "estimated_range_miles": {
+        "name": "Geschätzte Reichweite (Meilen)"
+      },
+      "average_energy_consumption": {
+        "name": "Durchschnittsverbrauch"
+      },
+      "estimated_charging_time": {
+        "name": "Verbleibende Ladezeit"
+      },
+      "charging_power": {
+        "name": "Ladeleistung"
+      },
+      "charging_current": {
+        "name": "Ladestrom"
+      },
+      "charging_voltage": {
+        "name": "Ladespannung"
+      },
+      "charging_status": {
+        "name": "Ladestatus",
+        "state": {
+          "idle": "Bereit / Leerlauf",
+          "charging": "Wird geladen",
+          "fast_charging": "Schnellladen",
+          "done": "Abgeschlossen",
+          "scheduled": "Geplant",
+          "fault": "Fehler",
+          "disconnected": "Getrennt",
+          "unspecified": "Nicht spezifiziert"
+        }
+      },
+      "charging_type": {
+        "name": "Ladeart",
+        "state": {
+          "none": "Keine",
+          "ac": "Wechselstrom (AC)",
+          "dc": "Gleichstrom-Schnellladen (DC)",
+          "unspecified": "Nicht spezifiziert"
+        }
+      },
+      "charger_power_status": {
+        "name": "Stromversorgungsstatus",
+        "state": {
+          "no_power_available": "Kein Strom verfügbar",
+          "power_available": "Strom verfügbar",
+          "charging": "Wird geladen"
+        }
+      },
+      "target_soc": {
+        "name": "Ladelimit"
+      },
+      "amp_limit": {
+        "name": "Ladestromgrenze"
+      },
+      "odometer": {
+        "name": "Kilometerstand"
+      },
+      "trip_meter_manual": {
+        "name": "Tageskilometerzähler (manuell)"
+      },
+      "trip_meter_automatic": {
+        "name": "Tageskilometerzähler (automatisch)"
+      },
+      "average_speed_manual": {
+        "name": "Durchschnittsgeschwindigkeit (manuell)"
+      },
+      "average_speed_automatic": {
+        "name": "Durchschnittsgeschwindigkeit (automatisch)"
+      },
+      "days_to_service": {
+        "name": "Tage bis zur Wartung"
+      },
+      "distance_to_service": {
+        "name": "Kilometer bis zur Wartung"
+      },
+      "engine_hours_to_service": {
+        "name": "Betriebsstunden bis zur Wartung"
+      },
+      "tyre_pressure_front_left": {
+        "name": "Reifendruck vorne links"
+      },
+      "tyre_pressure_front_right": {
+        "name": "Reifendruck vorne rechts"
+      },
+      "tyre_pressure_rear_left": {
+        "name": "Reifendruck hinten links"
+      },
+      "tyre_pressure_rear_right": {
+        "name": "Reifendruck hinten rechts"
+      },
+      "compartment_temperature": {
+        "name": "Innenraumtemperatur"
+      },
+      "requested_temperature": {
+        "name": "Gewünschte Innenraumtemperatur"
+      },
+      "climate_runtime_left": {
+        "name": "Verbleibende Vorklimatisierungszeit"
+      },
+      "ventilation_mode": {
+        "name": "Lüftungsmodus",
+        "state": {
+          "neutral": "Neutral",
+          "heating": "Heizen",
+          "cooling": "Kühlen",
+          "off": "Aus"
+        }
+      },
+      "measured_aqi": {
+        "name": "Innenraum-Luftqualitätsindex (AQI)"
+      },
+      "measured_pm25": {
+        "name": "Innenraum Feinstaub (PM2.5)"
+      },
+      "usage_mode": {
+        "name": "Nutzungsmodus",
+        "state": {
+          "abandoned": "Geparkt & verriegelt",
+          "parked": "Geparkt",
+          "driving": "Fahrt / Fahrbereit",
+          "convenience": "Komfortmodus",
+          "inactive": "Inaktiv"
+        }
+      },
+      "global_charge_timer_start": {
+        "name": "Ladeplan Startzeit"
+      },
+      "global_charge_timer_stop": {
+        "name": "Ladeplan Endzeit"
+      },
+      "exterior_color": {
+        "name": "Außenfarbe"
+      }
+    },
+    "binary_sensor": {
+      "charger_connected": {
+        "name": "Ladekabel angeschlossen"
+      },
+      "battery_charging": {
+        "name": "Ladevorgang aktiv"
+      },
+      "charge_now_active": {
+        "name": "Sofortladen aktiv"
+      },
+      "global_charge_timer_active": {
+        "name": "Ladeplan aktiv"
+      },
+      "front_left_door": {
+        "name": "Tür vorne links"
+      },
+      "front_right_door": {
+        "name": "Tür vorne rechts"
+      },
+      "rear_left_door": {
+        "name": "Tür hinten links"
+      },
+      "rear_right_door": {
+        "name": "Tür hinten rechts"
+      },
+      "front_left_window": {
+        "name": "Fenster vorne links"
+      },
+      "front_right_window": {
+        "name": "Fenster vorne rechts"
+      },
+      "rear_left_window": {
+        "name": "Fenster hinten links"
+      },
+      "rear_right_window": {
+        "name": "Fenster hinten rechts"
+      },
+      "hood": {
+        "name": "Motorhaube"
+      },
+      "tailgate": {
+        "name": "Heckklappe"
+      },
+      "tank_lid": {
+        "name": "Ladeklappe"
+      },
+      "central_lock": {
+        "name": "Zentralverriegelung"
+      },
+      "tailgate_lock": {
+        "name": "Heckklappenverriegelung"
+      },
+      "alarm": {
+        "name": "Alarmanlage"
+      },
+      "parking_climate_running": {
+        "name": "Standklimatisierung aktiv"
+      },
+      "pre_cleaning_running": {
+        "name": "Innenraum-Vorreinigung (CleanZone)"
+      },
+      "vehicle_available": {
+        "name": "Fahrzeug online verfügbar"
+      },
+      "service_warning": {
+        "name": "Wartungswarnung"
+      },
+      "brake_fluid_warning": {
+        "name": "Bremsflüssigkeits-Warnung"
+      },
+      "engine_coolant_warning": {
+        "name": "Kühlmittel-Warnung"
+      },
+      "oil_level_warning": {
+        "name": "Ölstandswarnung"
+      },
+      "washer_fluid_warning": {
+        "name": "Wischwasser-Warnung"
+      },
+      "low_voltage_battery_warning": {
+        "name": "12V-Batteriewarnung"
+      },
+      "tyre_pressure_warning": {
+        "name": "Reifendruckwarnung"
+      },
+      "exterior_light_warning": {
+        "name": "Außenbeleuchtungswarnung"
+      }
+    },
+    "device_tracker": {
+      "location": {
+        "name": "Standort"
+      }
+    },
+    "button": {
+      "refresh_data": {
+        "name": "Daten aktualisieren"
+      }
+    },
+    "image": {
+      "vehicle_image": {
+        "name": "Fahrzeugbild"
+      }
+    }
+  }
+}

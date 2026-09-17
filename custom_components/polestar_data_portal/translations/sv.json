@@ -1,0 +1,301 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Polestar Data Portal-inloggningsuppgifter",
+        "description": "Ange dina inloggningsuppgifter från data-portal.polestar.com. Du hittar 'App client ID' och 'Client secret' under fliken 'Credential', och 'Account ID' under fliken 'API Documentation'.",
+        "data": {
+          "client_id": "App client ID",
+          "client_secret": "Client secret",
+          "account_id": "Account ID / x-client-id"
+        }
+      },
+      "vehicle": {
+        "title": "Välj fordon",
+        "description": "Välj vilken Polestar du vill konfigurera.",
+        "data": {
+          "vin": "Fordon (VIN)",
+          "car_color": "Exteriörfärg"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Autentisering misslyckades. Kontrollera Client-ID, Client-Secret och Account-ID.",
+      "cannot_connect": "Kunde inte ansluta till Polestar API.",
+      "no_vehicles": "Inga auktoriserade fordon hittades för detta konto.",
+      "rate_limited": "Begränsning för Polestar API nådd. Försök igen senare.",
+      "unknown": "Ett oväntat fel uppstod."
+    },
+    "abort": {
+      "already_configured": "Detta fordon är redan konfigurerat."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Polestar-inställningar",
+        "description": "Konfigurera uppdateringsintervall och exteriörfärg för din Polestar.",
+        "data": {
+          "scan_interval": "Uppdateringsintervall (sekunder)",
+          "car_color": "Exteriörfärg"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery_level": {
+        "name": "Batterinivå"
+      },
+      "estimated_full_charge_range": {
+        "name": "Beräknad räckvidd vid 100%"
+      },
+      "estimated_charging_end_time": {
+        "name": "Beräknad laddning slutförd"
+      },
+      "last_telemetry_update": {
+        "name": "Senaste telemetriuppdatering"
+      },
+      "estimated_range": {
+        "name": "Beräknad räckvidd"
+      },
+      "estimated_range_miles": {
+        "name": "Beräknad räckvidd (miles)"
+      },
+      "average_energy_consumption": {
+        "name": "Genomsnittlig förbrukning"
+      },
+      "estimated_charging_time": {
+        "name": "Beräknad laddtid kvar"
+      },
+      "charging_power": {
+        "name": "Ladeffekt"
+      },
+      "charging_current": {
+        "name": "Laddström"
+      },
+      "charging_voltage": {
+        "name": "Laddspänning"
+      },
+      "charging_status": {
+        "name": "Laddstatus",
+        "state": {
+          "idle": "Väntar / Redo",
+          "charging": "Laddar",
+          "fast_charging": "Snabbladdar",
+          "done": "Färdig",
+          "scheduled": "Schemalagd",
+          "fault": "Fel",
+          "disconnected": "Frånkopplad",
+          "unspecified": "Ospecificerad"
+        }
+      },
+      "charging_type": {
+        "name": "Laddningstyp",
+        "state": {
+          "none": "Ingen",
+          "ac": "Växelström (AC)",
+          "dc": "Snabbladdning (DC)",
+          "unspecified": "Ospecificerad"
+        }
+      },
+      "charger_power_status": {
+        "name": "Strömförsörjningsstatus",
+        "state": {
+          "no_power_available": "Ingen ström tillgänglig",
+          "power_available": "Ström tillgänglig",
+          "charging": "Laddar"
+        }
+      },
+      "target_soc": {
+        "name": "Laddningsgräns"
+      },
+      "amp_limit": {
+        "name": "Strömgräns (A)"
+      },
+      "odometer": {
+        "name": "Mätarställning"
+      },
+      "trip_meter_manual": {
+        "name": "Trippmätare (manuell)"
+      },
+      "trip_meter_automatic": {
+        "name": "Trippmätare (automatisk)"
+      },
+      "average_speed_manual": {
+        "name": "Medelhastighet (manuell)"
+      },
+      "average_speed_automatic": {
+        "name": "Medelhastighet (automatisk)"
+      },
+      "days_to_service": {
+        "name": "Dagar till service"
+      },
+      "distance_to_service": {
+        "name": "Körsträcka till service"
+      },
+      "engine_hours_to_service": {
+        "name": "Drifttimmar till service"
+      },
+      "tyre_pressure_front_left": {
+        "name": "Däcktryck vänster fram"
+      },
+      "tyre_pressure_front_right": {
+        "name": "Däcktryck höger fram"
+      },
+      "tyre_pressure_rear_left": {
+        "name": "Däcktryck vänster bak"
+      },
+      "tyre_pressure_rear_right": {
+        "name": "Däcktryck höger bak"
+      },
+      "compartment_temperature": {
+        "name": "Kupétemperatur"
+      },
+      "requested_temperature": {
+        "name": "Önskad kupétemperatur"
+      },
+      "climate_runtime_left": {
+        "name": "Återstående förklimatiseringstid"
+      },
+      "ventilation_mode": {
+        "name": "Fläktläge",
+        "state": {
+          "neutral": "Neutral",
+          "heating": "Värme",
+          "cooling": "Kyla",
+          "off": "Av"
+        }
+      },
+      "measured_aqi": {
+        "name": "Luftkvalitetsindex kupé (AQI)"
+      },
+      "measured_pm25": {
+        "name": "Partiklar kupé (PM2.5)"
+      },
+      "usage_mode": {
+        "name": "Användningsläge",
+        "state": {
+          "abandoned": "Parkerad och låst",
+          "parked": "Parkerad",
+          "driving": "Körning",
+          "convenience": "Komfortläge",
+          "inactive": "Inaktiv"
+        }
+      },
+      "global_charge_timer_start": {
+        "name": "Laddschema starttid"
+      },
+      "global_charge_timer_stop": {
+        "name": "Laddschema stopptid"
+      },
+      "exterior_color": {
+        "name": "Exteriörfärg"
+      }
+    },
+    "binary_sensor": {
+      "charger_connected": {
+        "name": "Laddkabel ansluten"
+      },
+      "battery_charging": {
+        "name": "Laddning pågår"
+      },
+      "charge_now_active": {
+        "name": "Direktladdning aktiv"
+      },
+      "global_charge_timer_active": {
+        "name": "Laddschema aktivt"
+      },
+      "front_left_door": {
+        "name": "Förardörr (vänster fram)"
+      },
+      "front_right_door": {
+        "name": "Passagerardörr (höger fram)"
+      },
+      "rear_left_door": {
+        "name": "Bakdörr vänster"
+      },
+      "rear_right_door": {
+        "name": "Bakdörr höger"
+      },
+      "front_left_window": {
+        "name": "Fönster vänster fram"
+      },
+      "front_right_window": {
+        "name": "Fönster höger fram"
+      },
+      "rear_left_window": {
+        "name": "Fönster vänster bak"
+      },
+      "rear_right_window": {
+        "name": "Fönster höger bak"
+      },
+      "hood": {
+        "name": "Motorhuv"
+      },
+      "tailgate": {
+        "name": "Bagagelucka"
+      },
+      "tank_lid": {
+        "name": "Laddlucka"
+      },
+      "central_lock": {
+        "name": "Centrallås"
+      },
+      "tailgate_lock": {
+        "name": "Bagageluckelås"
+      },
+      "alarm": {
+        "name": "Larm"
+      },
+      "parking_climate_running": {
+        "name": "Parkeringsklimat aktivt"
+      },
+      "pre_cleaning_running": {
+        "name": "Kupérensning aktiv (CleanZone)"
+      },
+      "vehicle_available": {
+        "name": "Fordon online"
+      },
+      "service_warning": {
+        "name": "Servicevarning"
+      },
+      "brake_fluid_warning": {
+        "name": "Bromsvätskevarning"
+      },
+      "engine_coolant_warning": {
+        "name": "Kylarvätskevarning"
+      },
+      "oil_level_warning": {
+        "name": "Oljenivåvarning"
+      },
+      "washer_fluid_warning": {
+        "name": "Spolarvätskevarning"
+      },
+      "low_voltage_battery_warning": {
+        "name": "12V-batterivarning"
+      },
+      "tyre_pressure_warning": {
+        "name": "Däcktrycksvarning"
+      },
+      "exterior_light_warning": {
+        "name": "Ytterbelysningsvarning"
+      }
+    },
+    "device_tracker": {
+      "location": {
+        "name": "Position"
+      }
+    },
+    "button": {
+      "refresh_data": {
+        "name": "Uppdatera data"
+      }
+    },
+    "image": {
+      "vehicle_image": {
+        "name": "Fordonsbild"
+      }
+    }
+  }
+}

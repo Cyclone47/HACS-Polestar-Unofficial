@@ -15,6 +15,8 @@ A native, cloud-direct Home Assistant custom integration that communicates with 
 
 Compatible with **Polestar 2**, **Polestar 3**, **Polestar 4**, and **Polestar 5** vehicles registered in the EU / EEA.
 
+**Multilingual**: 🇬🇧 English · 🇳🇱 Nederlands · 🇩🇪 Deutsch · 🇸🇪 Svenska · 🇳🇴 Norsk · 🇫🇷 Français (100% native automotive terminology).
+
 ---
 
 ## 📖 Background: Why this Integration Exists

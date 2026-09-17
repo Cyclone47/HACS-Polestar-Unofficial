@@ -1,0 +1,301 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Polestar Data Portal påloggingsinformasjon",
+        "description": "Skriv inn påloggingsinformasjonen din fra data-portal.polestar.com. Du finner 'App client ID' og 'Client secret' under 'Credential'-fanen, og 'Account ID' under 'API Documentation'-fanen.",
+        "data": {
+          "client_id": "App client ID",
+          "client_secret": "Client secret",
+          "account_id": "Account ID / x-client-id"
+        }
+      },
+      "vehicle": {
+        "title": "Velg kjøretøy",
+        "description": "Velg Polestar-kjøretøyet du vil konfigurere.",
+        "data": {
+          "vin": "Kjøretøy (VIN)",
+          "car_color": "Eksteriørfarge"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Autentisering mislyktes. Kontroller Client-ID, Client-Secret og Account-ID.",
+      "cannot_connect": "Kunne ikke koble til Polestar API.",
+      "no_vehicles": "Ingen autoriserte kjøretøy funnet for denne kontoen.",
+      "rate_limited": "Polestar API-grense nådd. Vennligst prøv igjen senere.",
+      "unknown": "En uventet feil oppstod."
+    },
+    "abort": {
+      "already_configured": "Dette kjøretøyet er allerede konfigurert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Polestar-innstillinger",
+        "description": "Konfigurer oppdateringsintervall og eksteriørfarge for bilen din.",
+        "data": {
+          "scan_interval": "Oppdateringsintervall (sekunder)",
+          "car_color": "Eksteriørfarge"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery_level": {
+        "name": "Batterinivå"
+      },
+      "estimated_full_charge_range": {
+        "name": "Beregnet rekkevidde ved 100%"
+      },
+      "estimated_charging_end_time": {
+        "name": "Beregnet ferdigladet"
+      },
+      "last_telemetry_update": {
+        "name": "Siste telemetrioppdatering"
+      },
+      "estimated_range": {
+        "name": "Beregnet rekkevidde"
+      },
+      "estimated_range_miles": {
+        "name": "Beregnet rekkevidde (miles)"
+      },
+      "average_energy_consumption": {
+        "name": "Gjennomsnittsforbruk"
+      },
+      "estimated_charging_time": {
+        "name": "Beregnet ladetid gjenstår"
+      },
+      "charging_power": {
+        "name": "Ladeeffekt"
+      },
+      "charging_current": {
+        "name": "Ladestrøm"
+      },
+      "charging_voltage": {
+        "name": "Ladespenning"
+      },
+      "charging_status": {
+        "name": "Ladestatus",
+        "state": {
+          "idle": "Venter / Klar",
+          "charging": "Lader",
+          "fast_charging": "Hurtiglader",
+          "done": "Fullført",
+          "scheduled": "Planlagt",
+          "fault": "Feil",
+          "disconnected": "Frakoblet",
+          "unspecified": "Uspesifisert"
+        }
+      },
+      "charging_type": {
+        "name": "Ladetype",
+        "state": {
+          "none": "Ingen",
+          "ac": "Vekselstrøm (AC)",
+          "dc": "Hurtiglading (DC)",
+          "unspecified": "Uspesifisert"
+        }
+      },
+      "charger_power_status": {
+        "name": "Strømstatus lader",
+        "state": {
+          "no_power_available": "Ingen strøm tilgjengelig",
+          "power_available": "Strøm tilgjengelig",
+          "charging": "Lader"
+        }
+      },
+      "target_soc": {
+        "name": "Ladegrense"
+      },
+      "amp_limit": {
+        "name": "Strømgrense (A)"
+      },
+      "odometer": {
+        "name": "Kilometerteller"
+      },
+      "trip_meter_manual": {
+        "name": "Tripteller (manuell)"
+      },
+      "trip_meter_automatic": {
+        "name": "Tripteller (automatisk)"
+      },
+      "average_speed_manual": {
+        "name": "Gjennomsnittshastighet (manuell)"
+      },
+      "average_speed_automatic": {
+        "name": "Gjennomsnittshastighet (automatisk)"
+      },
+      "days_to_service": {
+        "name": "Dager til service"
+      },
+      "distance_to_service": {
+        "name": "Kilometer til service"
+      },
+      "engine_hours_to_service": {
+        "name": "Driftstimer til service"
+      },
+      "tyre_pressure_front_left": {
+        "name": "Dekktrykk venstre foran"
+      },
+      "tyre_pressure_front_right": {
+        "name": "Dekktrykk høyre foran"
+      },
+      "tyre_pressure_rear_left": {
+        "name": "Dekktrykk venstre bak"
+      },
+      "tyre_pressure_rear_right": {
+        "name": "Dekktrykk høyre bak"
+      },
+      "compartment_temperature": {
+        "name": "Kupétemperatur"
+      },
+      "requested_temperature": {
+        "name": "Ønsket kupétemperatur"
+      },
+      "climate_runtime_left": {
+        "name": "Gjenværende forklimatiseringstid"
+      },
+      "ventilation_mode": {
+        "name": "Viftemodus",
+        "state": {
+          "neutral": "Nøytral",
+          "heating": "Oppvarming",
+          "cooling": "Kjøling",
+          "off": "Av"
+        }
+      },
+      "measured_aqi": {
+        "name": "Luftkvalitetsindeks kupé (AQI)"
+      },
+      "measured_pm25": {
+        "name": "Svevestøv kupé (PM2.5)"
+      },
+      "usage_mode": {
+        "name": "Bruksmodus",
+        "state": {
+          "abandoned": "Parkert og låst",
+          "parked": "Parkert",
+          "driving": "Kjøring",
+          "convenience": "Komfortmodus",
+          "inactive": "Inaktiv"
+        }
+      },
+      "global_charge_timer_start": {
+        "name": "Ladeplan starttid"
+      },
+      "global_charge_timer_stop": {
+        "name": "Ladeplan stopptid"
+      },
+      "exterior_color": {
+        "name": "Eksteriørfarge"
+      }
+    },
+    "binary_sensor": {
+      "charger_connected": {
+        "name": "Ladekabel tilkoblet"
+      },
+      "battery_charging": {
+        "name": "Lading pågår"
+      },
+      "charge_now_active": {
+        "name": "Direktelading aktiv"
+      },
+      "global_charge_timer_active": {
+        "name": "Ladeplan aktiv"
+      },
+      "front_left_door": {
+        "name": "Dør venstre foran"
+      },
+      "front_right_door": {
+        "name": "Dør høyre foran"
+      },
+      "rear_left_door": {
+        "name": "Dør venstre bak"
+      },
+      "rear_right_door": {
+        "name": "Dør høyre bak"
+      },
+      "front_left_window": {
+        "name": "Vindu venstre foran"
+      },
+      "front_right_window": {
+        "name": "Vindu høyre foran"
+      },
+      "rear_left_window": {
+        "name": "Vindu venstre bak"
+      },
+      "rear_right_window": {
+        "name": "Vindu høyre bak"
+      },
+      "hood": {
+        "name": "Panser"
+      },
+      "tailgate": {
+        "name": "Bagasjeluke"
+      },
+      "tank_lid": {
+        "name": "Ladeluke"
+      },
+      "central_lock": {
+        "name": "Sentrallås"
+      },
+      "tailgate_lock": {
+        "name": "Bagasjelukelås"
+      },
+      "alarm": {
+        "name": "Alarm"
+      },
+      "parking_climate_running": {
+        "name": "Parkeringsklima aktivt"
+      },
+      "pre_cleaning_running": {
+        "name": "Kupérensing aktiv (CleanZone)"
+      },
+      "vehicle_available": {
+        "name": "Kjøretøy tilgjengelig online"
+      },
+      "service_warning": {
+        "name": "Servicevarsel"
+      },
+      "brake_fluid_warning": {
+        "name": "Bremsevæskevarsel"
+      },
+      "engine_coolant_warning": {
+        "name": "Kjølevæskevarsel"
+      },
+      "oil_level_warning": {
+        "name": "Oljenivåvarsel"
+      },
+      "washer_fluid_warning": {
+        "name": "Spylervæskevarsel"
+      },
+      "low_voltage_battery_warning": {
+        "name": "12V-batterivarsel"
+      },
+      "tyre_pressure_warning": {
+        "name": "Dekktrykkvarsel"
+      },
+      "exterior_light_warning": {
+        "name": "Utvendig lysvarsel"
+      }
+    },
+    "device_tracker": {
+      "location": {
+        "name": "Posisjon"
+      }
+    },
+    "button": {
+      "refresh_data": {
+        "name": "Oppdater data"
+      }
+    },
+    "image": {
+      "vehicle_image": {
+        "name": "Kjøretøybilde"
+      }
+    }
+  }
+}
