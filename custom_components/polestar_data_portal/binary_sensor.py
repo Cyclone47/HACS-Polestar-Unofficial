@@ -77,7 +77,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="charger_connected",
         translation_key="charger_connected",
-        name="Charger connected",
         device_class=BinarySensorDeviceClass.PLUG,
         is_on_fn=lambda data: (
             (data.get("battery") or {}).get("chargerConnectionStatus")
@@ -87,7 +86,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="battery_charging",
         translation_key="battery_charging",
-        name="Charging",
         device_class=BinarySensorDeviceClass.BATTERY_CHARGING,
         is_on_fn=lambda data: (
             (data.get("battery") or {}).get("chargingStatusV2")
@@ -101,7 +99,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="charge_now_active",
         translation_key="charge_now_active",
-        name="Charge now active",
         device_class=BinarySensorDeviceClass.POWER,
         icon="mdi:flash",
         is_on_fn=lambda data: (
@@ -113,7 +110,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="global_charge_timer_active",
         translation_key="global_charge_timer_active",
-        name="Global charge timer active",
         device_class=BinarySensorDeviceClass.RUNNING,
         icon="mdi:timer-check",
         is_on_fn=lambda data: (
@@ -126,28 +122,24 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="front_left_door",
         translation_key="front_left_door",
-        name="Front left door",
         device_class=BinarySensorDeviceClass.DOOR,
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("frontLeftDoor")),
     ),
     PolestarBinarySensorEntityDescription(
         key="front_right_door",
         translation_key="front_right_door",
-        name="Front right door",
         device_class=BinarySensorDeviceClass.DOOR,
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("frontRightDoor")),
     ),
     PolestarBinarySensorEntityDescription(
         key="rear_left_door",
         translation_key="rear_left_door",
-        name="Rear left door",
         device_class=BinarySensorDeviceClass.DOOR,
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("rearLeftDoor")),
     ),
     PolestarBinarySensorEntityDescription(
         key="rear_right_door",
         translation_key="rear_right_door",
-        name="Rear right door",
         device_class=BinarySensorDeviceClass.DOOR,
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("rearRightDoor")),
     ),
@@ -155,28 +147,24 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="front_left_window",
         translation_key="front_left_window",
-        name="Front left window",
         device_class=BinarySensorDeviceClass.WINDOW,
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("frontLeftWindow")),
     ),
     PolestarBinarySensorEntityDescription(
         key="front_right_window",
         translation_key="front_right_window",
-        name="Front right window",
         device_class=BinarySensorDeviceClass.WINDOW,
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("frontRightWindow")),
     ),
     PolestarBinarySensorEntityDescription(
         key="rear_left_window",
         translation_key="rear_left_window",
-        name="Rear left window",
         device_class=BinarySensorDeviceClass.WINDOW,
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("rearLeftWindow")),
     ),
     PolestarBinarySensorEntityDescription(
         key="rear_right_window",
         translation_key="rear_right_window",
-        name="Rear right window",
         device_class=BinarySensorDeviceClass.WINDOW,
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("rearRightWindow")),
     ),
@@ -184,7 +172,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="hood",
         translation_key="hood",
-        name="Hood",
         device_class=BinarySensorDeviceClass.DOOR,
         icon="mdi:car-hood",
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("hood")),
@@ -192,7 +179,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="tailgate",
         translation_key="tailgate",
-        name="Tailgate",
         device_class=BinarySensorDeviceClass.DOOR,
         icon="mdi:car-back",
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("tailgate")),
@@ -200,7 +186,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="tank_lid",
         translation_key="tank_lid",
-        name="Charge port flap",
         device_class=BinarySensorDeviceClass.DOOR,
         icon="mdi:ev-plug-type2",
         is_on_fn=lambda data: _is_open((data.get("exterior") or {}).get("tankLid")),
@@ -209,21 +194,18 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="central_lock",
         translation_key="central_lock",
-        name="Central lock",
         device_class=BinarySensorDeviceClass.LOCK,
         is_on_fn=lambda data: _is_unlocked((data.get("exterior") or {}).get("centralLock")),
     ),
     PolestarBinarySensorEntityDescription(
         key="tailgate_lock",
         translation_key="tailgate_lock",
-        name="Tailgate lock",
         device_class=BinarySensorDeviceClass.LOCK,
         is_on_fn=lambda data: _is_unlocked((data.get("exterior") or {}).get("tailgateLock")),
     ),
     PolestarBinarySensorEntityDescription(
         key="alarm",
         translation_key="alarm",
-        name="Alarm",
         device_class=BinarySensorDeviceClass.SAFETY,
         icon="mdi:shield-alert",
         is_on_fn=lambda data: (
@@ -236,7 +218,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="parking_climate_running",
         translation_key="parking_climate_running",
-        name="Parking climate",
         device_class=BinarySensorDeviceClass.RUNNING,
         icon="mdi:air-conditioner",
         is_on_fn=lambda data: (
@@ -246,7 +227,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="pre_cleaning_running",
         translation_key="pre_cleaning_running",
-        name="Interior pre-cleaning",
         device_class=BinarySensorDeviceClass.RUNNING,
         icon="mdi:air-filter",
         is_on_fn=lambda data: (
@@ -256,7 +236,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="vehicle_available",
         translation_key="vehicle_available",
-        name="Vehicle availability",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
         is_on_fn=lambda data: (
             (data.get("availability") or {}).get("availabilityStatus")
@@ -267,7 +246,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="service_warning",
         translation_key="service_warning",
-        name="Service warning",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:wrench-alert",
         is_on_fn=lambda data: (
@@ -279,7 +257,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="brake_fluid_warning",
         translation_key="brake_fluid_warning",
-        name="Brake fluid level warning",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:car-brake-alert",
         is_on_fn=lambda data: (
@@ -291,7 +268,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="engine_coolant_warning",
         translation_key="engine_coolant_warning",
-        name="Engine coolant level warning",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:coolant-temperature",
         is_on_fn=lambda data: (
@@ -303,7 +279,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="oil_level_warning",
         translation_key="oil_level_warning",
-        name="Oil level warning",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:oil",
         is_on_fn=lambda data: (
@@ -315,7 +290,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="washer_fluid_warning",
         translation_key="washer_fluid_warning",
-        name="Washer fluid level warning",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:wiper-wash",
         is_on_fn=lambda data: (
@@ -327,7 +301,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="low_voltage_battery_warning",
         translation_key="low_voltage_battery_warning",
-        name="12V battery warning",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:car-battery",
         is_on_fn=lambda data: (
@@ -339,7 +312,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="tyre_pressure_warning",
         translation_key="tyre_pressure_warning",
-        name="Tyre pressure warning",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:car-tire-alert",
         is_on_fn=lambda data: _has_tyre_warning(data.get("health")),
@@ -347,7 +319,6 @@ BINARY_SENSOR_DESCRIPTIONS: tuple[PolestarBinarySensorEntityDescription, ...] = 
     PolestarBinarySensorEntityDescription(
         key="exterior_light_warning",
         translation_key="exterior_light_warning",
-        name="Exterior light warning",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:car-light-alert",
         is_on_fn=lambda data: _has_light_warning(data.get("health")),

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 import logging
 from typing import Any
 
@@ -43,9 +44,6 @@ class PolestarSensorEntityDescription(SensorEntityDescription):
     value_fn: Callable[[dict[str, Any]], Any]
 
 
-from datetime import datetime, timedelta, timezone
-
-
 def _format_time_obj(time_obj: dict[str, Any] | None) -> str | None:
     """Format hour and minute object to HH:MM."""
     if not time_obj or "hour" not in time_obj:
@@ -75,12 +73,21 @@ def _calculate_charging_end_time(data: dict[str, Any]) -> datetime | None:
     return None
 
 
+def _clean_enum_value(val: str | None, prefix: str) -> str | None:
+    """Normalize raw API enum to lowercase for Home Assistant translation matching."""
+    if not val:
+        return None
+    val_str = str(val).upper()
+    if val_str.startswith(prefix):
+        val_str = val_str[len(prefix):]
+    return val_str.lower()
+
+
 SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     # Battery & Charging Sensors
     PolestarSensorEntityDescription(
         key="battery_level",
         translation_key="battery_level",
-        name="Battery level",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
@@ -89,7 +96,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="estimated_full_charge_range",
         translation_key="estimated_full_charge_range",
-        name="Estimated full charge range",
         native_unit_of_measurement=UnitOfLength.KILOMETERS,
         device_class=SensorDeviceClass.DISTANCE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -99,7 +105,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="estimated_charging_end_time",
         translation_key="estimated_charging_end_time",
-        name="Estimated charging end time",
         device_class=SensorDeviceClass.TIMESTAMP,
         icon="mdi:clock-check-outline",
         value_fn=_calculate_charging_end_time,
@@ -107,7 +112,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="last_telemetry_update",
         translation_key="last_telemetry_update",
-        name="Last telemetry update",
         device_class=SensorDeviceClass.TIMESTAMP,
         icon="mdi:clock-outline",
         entity_registry_enabled_default=False,
@@ -116,7 +120,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="estimated_range",
         translation_key="estimated_range",
-        name="Estimated range",
         native_unit_of_measurement=UnitOfLength.KILOMETERS,
         device_class=SensorDeviceClass.DISTANCE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -126,7 +129,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="estimated_range_miles",
         translation_key="estimated_range_miles",
-        name="Estimated range (miles)",
         native_unit_of_measurement=UnitOfLength.MILES,
         device_class=SensorDeviceClass.DISTANCE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -137,7 +139,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="average_energy_consumption",
         translation_key="average_energy_consumption",
-        name="Average energy consumption",
         native_unit_of_measurement="kWh/100km",
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:gauge",
@@ -146,7 +147,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="estimated_charging_time",
         translation_key="estimated_charging_time",
-        name="Estimated charging time to full",
         native_unit_of_measurement=UnitOfTime.MINUTES,
         device_class=SensorDeviceClass.DURATION,
         icon="mdi:timer-outline",
@@ -155,7 +155,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="charging_power",
         translation_key="charging_power",
-        name="Charging power",
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
@@ -164,7 +163,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="charging_current",
         translation_key="charging_current",
-        name="Charging current",
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
         device_class=SensorDeviceClass.CURRENT,
         state_class=SensorStateClass.MEASUREMENT,
@@ -173,7 +171,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="charging_voltage",
         translation_key="charging_voltage",
-        name="Charging voltage",
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -182,30 +179,32 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="charging_status",
         translation_key="charging_status",
-        name="Charging status",
+        device_class=SensorDeviceClass.ENUM,
+        options=["idle", "charging", "fast_charging", "done", "scheduled", "fault", "disconnected", "unspecified"],
         icon="mdi:ev-station",
-        value_fn=lambda data: (data.get("battery") or {}).get("chargingStatusV2"),
+        value_fn=lambda data: _clean_enum_value((data.get("battery") or {}).get("chargingStatusV2"), "CHARGING_STATUS_V2_"),
     ),
     PolestarSensorEntityDescription(
         key="charging_type",
         translation_key="charging_type",
-        name="Charging type",
+        device_class=SensorDeviceClass.ENUM,
+        options=["none", "ac", "dc", "unspecified"],
         icon="mdi:lightning-bolt",
-        value_fn=lambda data: (data.get("battery") or {}).get("chargingType"),
+        value_fn=lambda data: _clean_enum_value((data.get("battery") or {}).get("chargingType"), "CHARGING_TYPE_"),
     ),
     PolestarSensorEntityDescription(
         key="charger_power_status",
         translation_key="charger_power_status",
-        name="Charger power status",
+        device_class=SensorDeviceClass.ENUM,
+        options=["no_power_available", "power_available", "charging"],
         icon="mdi:power",
         entity_registry_enabled_default=False,
-        value_fn=lambda data: (data.get("battery") or {}).get("chargerPowerStatus"),
+        value_fn=lambda data: _clean_enum_value((data.get("battery") or {}).get("chargerPowerStatus"), "CHARGER_POWER_STATUS_"),
     ),
     # Charging Settings
     PolestarSensorEntityDescription(
         key="target_soc",
         translation_key="target_soc",
-        name="Target state of charge",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.BATTERY,
         icon="mdi:battery-charging-high",
@@ -216,7 +215,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="amp_limit",
         translation_key="amp_limit",
-        name="Charging amp limit",
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
         device_class=SensorDeviceClass.CURRENT,
         icon="mdi:current-ac",
@@ -228,7 +226,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="odometer",
         translation_key="odometer",
-        name="Odometer",
         native_unit_of_measurement=UnitOfLength.KILOMETERS,
         device_class=SensorDeviceClass.DISTANCE,
         state_class=SensorStateClass.TOTAL_INCREASING,
@@ -242,7 +239,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="trip_meter_manual",
         translation_key="trip_meter_manual",
-        name="Trip meter (manual)",
         native_unit_of_measurement=UnitOfLength.KILOMETERS,
         device_class=SensorDeviceClass.DISTANCE,
         state_class=SensorStateClass.TOTAL,
@@ -256,7 +252,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="trip_meter_automatic",
         translation_key="trip_meter_automatic",
-        name="Trip meter (automatic)",
         native_unit_of_measurement=UnitOfLength.KILOMETERS,
         device_class=SensorDeviceClass.DISTANCE,
         state_class=SensorStateClass.TOTAL,
@@ -270,7 +265,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="average_speed_manual",
         translation_key="average_speed_manual",
-        name="Average speed (manual)",
         native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
         device_class=SensorDeviceClass.SPEED,
         icon="mdi:speedometer",
@@ -279,7 +273,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="average_speed_automatic",
         translation_key="average_speed_automatic",
-        name="Average speed (automatic)",
         native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
         device_class=SensorDeviceClass.SPEED,
         icon="mdi:speedometer",
@@ -289,7 +282,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="days_to_service",
         translation_key="days_to_service",
-        name="Days to service",
         native_unit_of_measurement=UnitOfTime.DAYS,
         device_class=SensorDeviceClass.DURATION,
         icon="mdi:wrench-clock",
@@ -298,7 +290,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="distance_to_service",
         translation_key="distance_to_service",
-        name="Distance to service",
         native_unit_of_measurement=UnitOfLength.KILOMETERS,
         device_class=SensorDeviceClass.DISTANCE,
         icon="mdi:wrench",
@@ -307,7 +298,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="engine_hours_to_service",
         translation_key="engine_hours_to_service",
-        name="Engine hours to service",
         native_unit_of_measurement=UnitOfTime.HOURS,
         device_class=SensorDeviceClass.DURATION,
         icon="mdi:clock-outline",
@@ -318,7 +308,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="tyre_pressure_front_left",
         translation_key="tyre_pressure_front_left",
-        name="Tyre pressure front left",
         native_unit_of_measurement=UnitOfPressure.KPA,
         device_class=SensorDeviceClass.PRESSURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -328,7 +317,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="tyre_pressure_front_right",
         translation_key="tyre_pressure_front_right",
-        name="Tyre pressure front right",
         native_unit_of_measurement=UnitOfPressure.KPA,
         device_class=SensorDeviceClass.PRESSURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -338,7 +326,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="tyre_pressure_rear_left",
         translation_key="tyre_pressure_rear_left",
-        name="Tyre pressure rear left",
         native_unit_of_measurement=UnitOfPressure.KPA,
         device_class=SensorDeviceClass.PRESSURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -348,7 +335,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="tyre_pressure_rear_right",
         translation_key="tyre_pressure_rear_right",
-        name="Tyre pressure rear right",
         native_unit_of_measurement=UnitOfPressure.KPA,
         device_class=SensorDeviceClass.PRESSURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -359,7 +345,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="compartment_temperature",
         translation_key="compartment_temperature",
-        name="Compartment temperature",
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -368,7 +353,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="requested_temperature",
         translation_key="requested_temperature",
-        name="Requested climate temperature",
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         device_class=SensorDeviceClass.TEMPERATURE,
         icon="mdi:thermometer-auto",
@@ -377,7 +361,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="climate_runtime_left",
         translation_key="climate_runtime_left",
-        name="Climate runtime left",
         native_unit_of_measurement=UnitOfTime.MINUTES,
         device_class=SensorDeviceClass.DURATION,
         icon="mdi:timer-sand",
@@ -386,15 +369,15 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="ventilation_mode",
         translation_key="ventilation_mode",
-        name="Ventilation mode",
+        device_class=SensorDeviceClass.ENUM,
+        options=["neutral", "heating", "cooling", "off"],
         icon="mdi:fan",
-        value_fn=lambda data: (data.get("parking_climatization") or {}).get("ventilation"),
+        value_fn=lambda data: _clean_enum_value((data.get("parking_climatization") or {}).get("ventilation"), "VENTILATION_"),
     ),
     # Air Quality & Pre-cleaning
     PolestarSensorEntityDescription(
         key="measured_aqi",
         translation_key="measured_aqi",
-        name="Cabin air quality index",
         device_class=SensorDeviceClass.AQI,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda data: (data.get("pre_cleaning") or {}).get("measuredAirQualityIndex"),
@@ -402,7 +385,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="measured_pm25",
         translation_key="measured_pm25",
-        name="Cabin PM2.5 particulate matter",
         native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         device_class=SensorDeviceClass.PM25,
         state_class=SensorStateClass.MEASUREMENT,
@@ -412,15 +394,15 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="usage_mode",
         translation_key="usage_mode",
-        name="Usage mode",
+        device_class=SensorDeviceClass.ENUM,
+        options=["abandoned", "parked", "driving", "convenience", "inactive"],
         icon="mdi:car-info",
-        value_fn=lambda data: (data.get("availability") or {}).get("usageMode"),
+        value_fn=lambda data: _clean_enum_value((data.get("availability") or {}).get("usageMode"), "USAGE_MODE_"),
     ),
     # Global Charge Timer Times
     PolestarSensorEntityDescription(
         key="global_charge_timer_start",
         translation_key="global_charge_timer_start",
-        name="Global charge timer start",
         icon="mdi:clock-start",
         entity_registry_enabled_default=False,
         value_fn=lambda data: _format_time_obj(
@@ -430,7 +412,6 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="global_charge_timer_stop",
         translation_key="global_charge_timer_stop",
-        name="Global charge timer stop",
         icon="mdi:clock-end",
         entity_registry_enabled_default=False,
         value_fn=lambda data: _format_time_obj(

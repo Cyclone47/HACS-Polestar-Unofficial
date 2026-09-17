@@ -33,7 +33,6 @@ class PolestarDeviceTracker(CoordinatorEntity[PolestarDataUpdateCoordinator], Tr
 
     _attr_has_entity_name = True
     _attr_translation_key = "location"
-    _attr_name = "Location"
 
     def __init__(self, coordinator: PolestarDataUpdateCoordinator) -> None:
         """Initialize the device tracker."""

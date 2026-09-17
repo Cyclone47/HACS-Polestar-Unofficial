@@ -32,7 +32,6 @@ class PolestarRefreshButton(CoordinatorEntity[PolestarDataUpdateCoordinator], Bu
     entity_description = ButtonEntityDescription(
         key="refresh_data",
         translation_key="refresh_data",
-        name="Refresh data",
         icon="mdi:refresh",
     )
     _attr_has_entity_name = True

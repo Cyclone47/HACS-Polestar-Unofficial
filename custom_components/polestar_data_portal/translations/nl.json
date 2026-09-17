@@ -53,9 +53,36 @@
       "charging_power": { "name": "Laadvermogen" },
       "charging_current": { "name": "Laadstroom" },
       "charging_voltage": { "name": "Laadspanning" },
-      "charging_status": { "name": "Laadstatus" },
-      "charging_type": { "name": "Laadtype" },
-      "charger_power_status": { "name": "Laadstroomstatus" },
+      "charging_status": {
+        "name": "Laadstatus",
+        "state": {
+          "idle": "Niet aan het laden",
+          "charging": "Aan het laden",
+          "fast_charging": "Snelladen",
+          "done": "Voltooid",
+          "scheduled": "Gepland",
+          "fault": "Laadfout",
+          "disconnected": "Niet aangesloten",
+          "unspecified": "Onbekend"
+        }
+      },
+      "charging_type": {
+        "name": "Laadtype",
+        "state": {
+          "none": "Geen",
+          "ac": "Wisselstroom (AC)",
+          "dc": "Gelijkstroom snellader (DC)",
+          "unspecified": "Onbekend"
+        }
+      },
+      "charger_power_status": {
+        "name": "Laadstroomstatus",
+        "state": {
+          "no_power_available": "Geen stroom beschikbaar",
+          "power_available": "Stroom beschikbaar",
+          "charging": "Actief ladend"
+        }
+      },
       "target_soc": { "name": "Doel-laadpercentage" },
       "amp_limit": { "name": "Laadstroomlimiet" },
       "odometer": { "name": "Kilometerstand" },
@@ -73,10 +100,27 @@
       "compartment_temperature": { "name": "Interieurtemperatuur" },
       "requested_temperature": { "name": "Gewenste temperatuur" },
       "climate_runtime_left": { "name": "Resterende klimatiseringstijd" },
-      "ventilation_mode": { "name": "Ventilatiemodus" },
+      "ventilation_mode": {
+        "name": "Ventilatiemodus",
+        "state": {
+          "neutral": "Neutraal",
+          "heating": "Verwarmen",
+          "cooling": "Koelen",
+          "off": "Uit"
+        }
+      },
       "measured_aqi": { "name": "Luchtkwaliteitsindex interieur" },
       "measured_pm25": { "name": "Fijnstof PM2.5 interieur" },
-      "usage_mode": { "name": "Gebruiksmodus" },
+      "usage_mode": {
+        "name": "Gebruiksmodus",
+        "state": {
+          "abandoned": "Geparkeerd en vergrendeld",
+          "parked": "Geparkeerd",
+          "driving": "Rijdend",
+          "convenience": "Comfortmodus",
+          "inactive": "Inactief"
+        }
+      },
       "global_charge_timer_start": { "name": "Laadschema starttijd" },
       "global_charge_timer_stop": { "name": "Laadschema stoptijd" }
     },

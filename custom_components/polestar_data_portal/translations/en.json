@@ -53,9 +53,36 @@
       "charging_power": { "name": "Charging power" },
       "charging_current": { "name": "Charging current" },
       "charging_voltage": { "name": "Charging voltage" },
-      "charging_status": { "name": "Charging status" },
-      "charging_type": { "name": "Charging type" },
-      "charger_power_status": { "name": "Charger power status" },
+      "charging_status": {
+        "name": "Charging status",
+        "state": {
+          "idle": "Idle",
+          "charging": "Charging",
+          "fast_charging": "Fast charging",
+          "done": "Done",
+          "scheduled": "Scheduled",
+          "fault": "Fault",
+          "disconnected": "Disconnected",
+          "unspecified": "Unspecified"
+        }
+      },
+      "charging_type": {
+        "name": "Charging type",
+        "state": {
+          "none": "None",
+          "ac": "AC",
+          "dc": "DC fast charging",
+          "unspecified": "Unspecified"
+        }
+      },
+      "charger_power_status": {
+        "name": "Charger power status",
+        "state": {
+          "no_power_available": "No power available",
+          "power_available": "Power available",
+          "charging": "Charging"
+        }
+      },
       "target_soc": { "name": "Target state of charge" },
       "amp_limit": { "name": "Charging amp limit" },
       "odometer": { "name": "Odometer" },
@@ -73,10 +100,27 @@
       "compartment_temperature": { "name": "Compartment temperature" },
       "requested_temperature": { "name": "Requested climate temperature" },
       "climate_runtime_left": { "name": "Climate runtime left" },
-      "ventilation_mode": { "name": "Ventilation mode" },
+      "ventilation_mode": {
+        "name": "Ventilation mode",
+        "state": {
+          "neutral": "Neutral",
+          "heating": "Heating",
+          "cooling": "Cooling",
+          "off": "Off"
+        }
+      },
       "measured_aqi": { "name": "Cabin air quality index" },
       "measured_pm25": { "name": "Cabin PM2.5 particulate matter" },
-      "usage_mode": { "name": "Usage mode" },
+      "usage_mode": {
+        "name": "Usage mode",
+        "state": {
+          "abandoned": "Parked & locked",
+          "parked": "Parked",
+          "driving": "Driving",
+          "convenience": "Convenience mode",
+          "inactive": "Inactive"
+        }
+      },
       "global_charge_timer_start": { "name": "Global charge timer start" },
       "global_charge_timer_stop": { "name": "Global charge timer stop" }
     },
