@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="images/logo.png" width="140" alt="Polestar Logo">
+  <img src="https://raw.githubusercontent.com/Cyclone47/HACS-Polestar-Unofficial/main/images/logo.png" width="140" alt="Polestar Logo">
 </p>
 
 # Polestar Data Portal — Home Assistant Integration (EU Data Act)
 
 [![HACS Badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/default)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.1%2B-blue.svg?style=for-the-badge)](https://www.home-assistant.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/Cyclone47/HACS-Polestar-Unofficial/blob/main/LICENSE)
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Cyclone47&repository=HACS-Polestar-Unofficial&category=integration)
 [![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=polestar_data_portal)
