@@ -28,10 +28,10 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Polestar Data Portal from a config entry."""
-    client_id = entry.data[CONF_CLIENT_ID]
-    client_secret = entry.data[CONF_CLIENT_SECRET]
-    account_id = entry.data[CONF_ACCOUNT_ID]
-    vin = entry.data[CONF_VIN]
+    client_id = entry.data[CONF_CLIENT_ID].strip()
+    client_secret = entry.data[CONF_CLIENT_SECRET].strip()
+    account_id = entry.data[CONF_ACCOUNT_ID].strip()
+    vin = entry.data[CONF_VIN].strip()
 
     scan_interval = entry.options.get(
         CONF_SCAN_INTERVAL,
@@ -83,8 +83,14 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Handle options updates."""
     if coordinator := hass.data.get(DOMAIN, {}).get(entry.entry_id):
-        new_interval = entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
-        new_color = entry.options.get(CONF_CAR_COLOR, DEFAULT_CAR_COLOR)
+        new_interval = entry.options.get(
+            CONF_SCAN_INTERVAL,
+            entry.data.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
+        )
+        new_color = entry.options.get(
+            CONF_CAR_COLOR,
+            entry.data.get(CONF_CAR_COLOR, DEFAULT_CAR_COLOR),
+        )
         _LOGGER.debug("Updating Polestar polling interval to %d seconds and color to %s", new_interval, new_color)
         coordinator.update_interval = timedelta(seconds=new_interval)
         coordinator.car_color = new_color

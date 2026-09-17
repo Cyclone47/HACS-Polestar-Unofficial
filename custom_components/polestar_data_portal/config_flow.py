@@ -60,11 +60,15 @@ class PolestarConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
 
         if user_input is not None:
+            client_id = user_input[CONF_CLIENT_ID].strip()
+            client_secret = user_input[CONF_CLIENT_SECRET].strip()
+            account_id = user_input[CONF_ACCOUNT_ID].strip()
+
             session = async_get_clientsession(self.hass)
             api = PolestarApiClient(
-                client_id=user_input[CONF_CLIENT_ID],
-                client_secret=user_input[CONF_CLIENT_SECRET],
-                account_id=user_input[CONF_ACCOUNT_ID],
+                client_id=client_id,
+                client_secret=client_secret,
+                account_id=account_id,
                 session=session,
             )
 
@@ -82,26 +86,11 @@ class PolestarConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             else:
                 if not vehicles:
                     errors["base"] = "no_vehicles"
-                elif len(vehicles) == 1:
-                    vin = vehicles[0]
-                    await self.async_set_unique_id(vin)
-                    self._abort_if_unique_id_configured()
-
-                    return self.async_create_entry(
-                        title=f"Polestar ({vin})",
-                        data={
-                            CONF_CLIENT_ID: user_input[CONF_CLIENT_ID].strip(),
-                            CONF_CLIENT_SECRET: user_input[CONF_CLIENT_SECRET].strip(),
-                            CONF_ACCOUNT_ID: user_input[CONF_ACCOUNT_ID].strip(),
-                            CONF_VIN: vin,
-                            CONF_CAR_COLOR: DEFAULT_CAR_COLOR,
-                        },
-                    )
                 else:
                     self._user_input = {
-                        CONF_CLIENT_ID: user_input[CONF_CLIENT_ID].strip(),
-                        CONF_CLIENT_SECRET: user_input[CONF_CLIENT_SECRET].strip(),
-                        CONF_ACCOUNT_ID: user_input[CONF_ACCOUNT_ID].strip(),
+                        CONF_CLIENT_ID: client_id,
+                        CONF_CLIENT_SECRET: client_secret,
+                        CONF_ACCOUNT_ID: account_id,
                     }
                     self._vehicles = vehicles
                     return await self.async_step_vehicle()

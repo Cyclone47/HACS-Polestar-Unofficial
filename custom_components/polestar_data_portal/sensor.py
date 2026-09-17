@@ -15,7 +15,6 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
-    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     PERCENTAGE,
     UnitOfElectricCurrent,
     UnitOfElectricPotential,
@@ -36,12 +35,25 @@ from .coordinator import PolestarDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
+try:
+    from homeassistant.const import UnitOfDensity
+
+    UNIT_PM25 = UnitOfDensity.MICROGRAMS_PER_CUBIC_METER
+except (ImportError, AttributeError):
+    try:
+        from homeassistant.const import CONCENTRATION_MICROGRAMS_PER_CUBIC_METER
+
+        UNIT_PM25 = CONCENTRATION_MICROGRAMS_PER_CUBIC_METER
+    except ImportError:
+        UNIT_PM25 = "µg/m³"
+
 
 @dataclass(frozen=True, kw_only=True)
 class PolestarSensorEntityDescription(SensorEntityDescription):
     """Describes Polestar sensor entity."""
 
     value_fn: Callable[[dict[str, Any]], Any]
+    extra_attrs_fn: Callable[[dict[str, Any]], dict[str, Any]] | None = None
 
 
 def _format_time_obj(time_obj: dict[str, Any] | None) -> str | None:
@@ -385,7 +397,7 @@ SENSOR_DESCRIPTIONS: tuple[PolestarSensorEntityDescription, ...] = (
     PolestarSensorEntityDescription(
         key="measured_pm25",
         translation_key="measured_pm25",
-        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        native_unit_of_measurement=UNIT_PM25,
         device_class=SensorDeviceClass.PM25,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda data: (data.get("pre_cleaning") or {}).get("measuredParticulateMatter25"),
@@ -475,3 +487,10 @@ class PolestarSensor(CoordinatorEntity[PolestarDataUpdateCoordinator], SensorEnt
     def native_value(self) -> Any:
         """Return the state of the sensor."""
         return self.entity_description.value_fn(self.coordinator.data)
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return sensor extra state attributes."""
+        if self.entity_description.extra_attrs_fn:
+            return self.entity_description.extra_attrs_fn(self.coordinator.data)
+        return None
